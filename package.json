@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/mergent",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "repository": "https://github.com/fern-mergent/mergent-node",
     "files": [
         "core",

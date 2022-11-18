@@ -32,5 +32,5 @@ export interface CreateTaskRequest {
    * added to `scheduled_for`.
    *
    */
-  delay: string;
+  delay?: string;
 }

@@ -11,7 +11,7 @@ export const CreateTaskRequest: core.schemas.ObjectSchema<CreateTaskRequest.Raw,
     name: core.schemas.string().optional(),
     request: core.schemas.lazyObject(async () => (await import("../..")).HttpRequest),
     scheduledFor: core.schemas.property("scheduled_for", core.schemas.date().optional()),
-    delay: core.schemas.string(),
+    delay: core.schemas.string().optional(),
   });
 
 export declare namespace CreateTaskRequest {
@@ -19,6 +19,6 @@ export declare namespace CreateTaskRequest {
     name?: string | null;
     request: serializers.HttpRequest.Raw;
     scheduled_for?: string | null;
-    delay: string;
+    delay?: string | null;
   }
 }
