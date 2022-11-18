@@ -5,12 +5,8 @@
 import { MergentApi } from "../../..";
 import * as core from "../../../core";
 
-export interface Request {
-  taskId: MergentApi.TaskId;
-}
-
-export type Response = core.APIResponse<MergentApi.Task, MergentApi.task.run.Error>;
-export type Error = MergentApi.task.run.Error._Unknown;
+export type Response = core.APIResponse<MergentApi.Schedule, MergentApi.schedule.create.Error>;
+export type Error = MergentApi.schedule.create.Error._Unknown;
 
 export declare namespace Error {
   interface _Unknown extends _Utils {
@@ -19,7 +15,7 @@ export declare namespace Error {
   }
 
   interface _Utils {
-    _visit: <_Result>(visitor: MergentApi.task.run.Error._Visitor<_Result>) => _Result;
+    _visit: <_Result>(visitor: MergentApi.schedule.create.Error._Visitor<_Result>) => _Result;
   }
 
   interface _Visitor<_Result> {

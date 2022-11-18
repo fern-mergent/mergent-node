@@ -5,8 +5,8 @@
 import { MergentApi } from "../../..";
 import * as core from "../../../core";
 
-export const TaskId: core.schemas.Schema<TaskId.Raw, MergentApi.TaskId> = core.schemas.string();
+export const ScheduleId: core.schemas.Schema<ScheduleId.Raw, MergentApi.ScheduleId> = core.schemas.string();
 
-export declare namespace TaskId {
+export declare namespace ScheduleId {
   type Raw = string;
 }

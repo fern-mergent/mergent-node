@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../..";
-import { CompanyApi } from "../../..";
+import { MergentApi } from "../../..";
 import * as core from "../../../core";
 
-export const Request: core.schemas.Schema<serializers.CreateTaskRequest.Raw[], CompanyApi.CreateTaskRequest[]> =
+export const Request: core.schemas.Schema<serializers.CreateTaskRequest.Raw[], MergentApi.CreateTaskRequest[]> =
   core.schemas.list(core.schemas.lazyObject(async () => (await import("../..")).CreateTaskRequest));
-export const Response: core.schemas.Schema<serializers.Task.Raw[], CompanyApi.Task[]> = core.schemas.list(
+export const Response: core.schemas.Schema<serializers.Task.Raw[], MergentApi.Task[]> = core.schemas.list(
   core.schemas.lazyObject(async () => (await import("../..")).Task)
 );

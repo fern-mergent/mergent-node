@@ -20,19 +20,19 @@ export declare namespace Client {
 export class Client {
   constructor(private readonly options: Client.Options) {}
 
-  public async create(request: MergentApi.CreateTaskRequest): Promise<MergentApi.task.create.Response> {
+  public async create(request: MergentApi.CreateScheduleRequest): Promise<MergentApi.schedule.create.Response> {
     const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, "/tasks/"),
+      url: urlJoin(this.options.environment ?? environments.Environment.Production, "/schedules/"),
       method: "POST",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
       },
-      body: await serializers.CreateTaskRequest.json(request),
+      body: await serializers.CreateScheduleRequest.json(request),
     });
     if (response.ok) {
       return {
         ok: true,
-        body: await serializers.Task.parse(response.body as serializers.Task.Raw),
+        body: await serializers.Schedule.parse(response.body as serializers.Schedule.Raw),
       };
     }
 
@@ -46,9 +46,9 @@ export class Client {
     };
   }
 
-  public async get(request: MergentApi.task.get.Request): Promise<MergentApi.task.get.Response> {
+  public async get(request: MergentApi.schedule.get.Request): Promise<MergentApi.schedule.get.Response> {
     const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/tasks/${request.taskId}`),
+      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/schedules/${request.scheduleId}`),
       method: "GET",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
@@ -57,7 +57,7 @@ export class Client {
     if (response.ok) {
       return {
         ok: true,
-        body: await serializers.Task.parse(response.body as serializers.Task.Raw),
+        body: await serializers.Schedule.parse(response.body as serializers.Schedule.Raw),
       };
     }
 
@@ -71,19 +71,19 @@ export class Client {
     };
   }
 
-  public async update(request: MergentApi.task.update.Request): Promise<MergentApi.task.update.Response> {
+  public async update(request: MergentApi.schedule.update.Request): Promise<MergentApi.schedule.update.Response> {
     const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/tasks/${request.taskId}`),
+      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/schedules/${request.scheduleId}`),
       method: "PATCH",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
       },
-      body: await serializers.CreateTaskRequest.json(request._body),
+      body: await serializers.CreateScheduleRequest.json(request._body),
     });
     if (response.ok) {
       return {
         ok: true,
-        body: await serializers.Task.parse(response.body as serializers.Task.Raw),
+        body: await serializers.Schedule.parse(response.body as serializers.Schedule.Raw),
       };
     }
 
@@ -97,9 +97,9 @@ export class Client {
     };
   }
 
-  public async delete(request: MergentApi.task.delete.Request): Promise<MergentApi.task.delete.Response> {
+  public async delete(request: MergentApi.schedule.delete.Request): Promise<MergentApi.schedule.delete.Response> {
     const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/tasks/${request.taskId}`),
+      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/schedules/${request.scheduleId}`),
       method: "DELETE",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
@@ -122,10 +122,10 @@ export class Client {
     };
   }
 
-  public async run(request: MergentApi.task.run.Request): Promise<MergentApi.task.run.Response> {
+  public async getAll(): Promise<MergentApi.schedule.getAll.Response> {
     const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, `/tasks/${request.taskId}/run`),
-      method: "POST",
+      url: urlJoin(this.options.environment ?? environments.Environment.Production, "/schedules/"),
+      method: "GET",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
       },
@@ -133,7 +133,7 @@ export class Client {
     if (response.ok) {
       return {
         ok: true,
-        body: await serializers.Task.parse(response.body as serializers.Task.Raw),
+        body: await serializers.Schedule.parse(response.body as serializers.Schedule.Raw),
       };
     }
 
@@ -147,45 +147,23 @@ export class Client {
     };
   }
 
-  public async batchCreate(request: MergentApi.CreateTaskRequest[]): Promise<MergentApi.task.batchCreate.Response> {
+  public async getSchedules(
+    request: MergentApi.schedule.getSchedules.Request
+  ): Promise<MergentApi.schedule.getSchedules.Response> {
     const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, "/tasks/batch-create"),
-      method: "POST",
+      url: urlJoin(
+        this.options.environment ?? environments.Environment.Production,
+        `/schedules/${request.scheduleId}/schedules`
+      ),
+      method: "GET",
       headers: {
         Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
       },
-      body: await serializers.task.batchCreate.Request.json(request),
     });
     if (response.ok) {
       return {
         ok: true,
-        body: await serializers.task.batchCreate.Response.parse(response.body as serializers.Task.Raw[]),
-      };
-    }
-
-    return {
-      ok: false,
-      error: {
-        errorName: undefined,
-        content: response.error,
-        _visit: (visitor) => visitor._other(response.error),
-      },
-    };
-  }
-
-  public async batchDelete(request: MergentApi.TaskId[]): Promise<MergentApi.task.batchDelete.Response> {
-    const response = await core.fetcher({
-      url: urlJoin(this.options.environment ?? environments.Environment.Production, "/tasks/batch-delete"),
-      method: "POST",
-      headers: {
-        Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.auth?.token)),
-      },
-      body: await serializers.task.batchDelete.Request.json(request),
-    });
-    if (response.ok) {
-      return {
-        ok: true,
-        body: undefined,
+        body: await serializers.schedule.getSchedules.Response.parse(response.body as serializers.Task.Raw[]),
       };
     }
 

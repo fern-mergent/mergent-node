@@ -6,6 +6,6 @@ import * as serializers from "../..";
 import { MergentApi } from "../../..";
 import * as core from "../../../core";
 
-export const Request: core.schemas.Schema<serializers.TaskId.Raw[], MergentApi.TaskId[]> = core.schemas.list(
-  core.schemas.lazy(async () => (await import("../..")).TaskId)
+export const Response: core.schemas.Schema<serializers.Task.Raw[], MergentApi.Task[]> = core.schemas.list(
+  core.schemas.lazyObject(async () => (await import("../..")).Task)
 );

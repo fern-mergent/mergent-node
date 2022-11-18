@@ -1,2 +1,2 @@
-export * as CompanyApi from "./resources";
-export { CompanyApiClient } from "./Client";
+export * as MergentApi from "./resources";
+export { MergentApiClient } from "./Client";

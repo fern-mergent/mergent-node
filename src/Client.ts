@@ -4,9 +4,10 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
+import { Client as ScheduleClient } from "./resources/schedule/client/Client";
 import { Client as TaskClient } from "./resources/task/client/Client";
 
-export declare namespace CompanyApiClient {
+export declare namespace MergentApiClient {
   interface Options {
     environment?: environments.Environment | string;
     auth?: {
@@ -15,8 +16,14 @@ export declare namespace CompanyApiClient {
   }
 }
 
-export class CompanyApiClient {
-  constructor(private readonly options: CompanyApiClient.Options) {}
+export class MergentApiClient {
+  constructor(private readonly options: MergentApiClient.Options) {}
+
+  #schedule: ScheduleClient | undefined;
+
+  public get schedule(): ScheduleClient {
+    return (this.#schedule ??= new ScheduleClient(this.options));
+  }
 
   #task: TaskClient | undefined;
 

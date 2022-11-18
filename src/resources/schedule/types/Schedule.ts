@@ -4,14 +4,12 @@
 
 import { MergentApi } from "../../..";
 
-export interface Task extends MergentApi.CreateTaskRequest {
+export interface Schedule extends MergentApi.CreateScheduleRequest {
   /** A unique ID assigned upon creation. */
-  id: MergentApi.TaskId;
-  /** The status of this Task. */
-  status: MergentApi.TaskStatus;
+  id: MergentApi.ScheduleId;
   /**
    * The [ISO 8601 timestamp](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations)
-   * representing when the task was created.
+   * representing when the schedule was created.
    *
    */
   createdAt: Date;
