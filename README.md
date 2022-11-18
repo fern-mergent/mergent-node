@@ -8,12 +8,38 @@ API documentation is available at <https://api.mergent.co/docs/v2#/>.
 
 ## Usage
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](TODO)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/node-s3pcsq?file=app.ts)
 
 ```typescript
-import { TODO } from "TODO";
+import { MergentApiClient } from '@fern-api/mergent';
 
-const TODO
+void main();
+
+async function main() {
+  const client = new MergentApiClient({
+    auth: {
+      token: 'YOUR_TOKEN',
+    },
+  });
+
+  const response = await client.task.create({
+    request: {
+      url: 'https://www.google.com',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: '{ "key": "value" }',
+    },
+    scheduledFor: new Date('2023-10-01T15:53:05Z'),
+    delay: 'PT1M',
+  });
+
+  console.log(
+    'Received response from Mergent!',
+    JSON.stringify(response, undefined, 4)
+  );
+}
+
 ```
 
 ## Beta status
