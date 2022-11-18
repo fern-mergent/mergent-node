@@ -8,7 +8,7 @@ API documentation is available at <https://api.mergent.co/docs/v2#/>.
 
 ## Usage
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/node-s3pcsq?file=app.ts)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/node-s3pcsq?file=app.ts&view=editor)
 
 ```typescript
 import { MergentApiClient } from '@fern-api/mergent';
